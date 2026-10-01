@@ -5,12 +5,14 @@ export class LoginPage {
     readonly emailInput: Locator;
     readonly passwordInput: Locator;
     readonly signInButton: Locator;
+    readonly loginErrorMsg: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.emailInput = page.getByLabel('Email');
         this.passwordInput = page.getByLabel('Password');
         this.signInButton = page.getByRole('button', {name: 'Sign In'});
+        this.loginErrorMsg = page.getByText('Invalid email or password');
     }
 
     async goto(): Promise<void> {
@@ -22,4 +24,5 @@ export class LoginPage {
         await this.passwordInput.fill(password);
         await this.signInButton.click();
     }
+
 }

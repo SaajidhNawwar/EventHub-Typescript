@@ -10,3 +10,13 @@ test('Valid login: session is active', async ({ page }) => {
 
   await expect(page.getByRole('heading', { name: 'Featured Events' })).toBeVisible();
 });
+
+test('Invalid login: error message is displayed', async ({ page }) => {
+  const poManager = new POManager(page);
+  const loginPage = poManager.getLoginPage();
+
+  await loginPage.goto();
+  await loginPage.login(process.env.USER_EMAIL!, 'wrongpassword');
+
+  await expect(loginPage.loginErrorMsg).toBeVisible();
+});
